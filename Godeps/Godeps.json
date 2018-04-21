@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/hsiaoairplane/compare-price-drugstore",
+	"ImportPath": "github.com/hsiaoairplane/compare-drugstore-price",
 	"GoVersion": "go1.8",
 	"GodepVersion": "v79",
 	"Packages": [

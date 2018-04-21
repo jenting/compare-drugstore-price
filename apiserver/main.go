@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-price-drugstore/apiserver/v1"
+	"github.com/hsiaoairplane/compare-drugstore-price/apiserver/v1"
 )
 
 var (

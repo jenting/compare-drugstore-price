@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-price-drugstore/crawler/poya"
-	"github.com/hsiaoairplane/compare-price-drugstore/crawler/watsons"
+	"github.com/hsiaoairplane/compare-drugstore-price/crawler/poya"
+	"github.com/hsiaoairplane/compare-drugstore-price/crawler/watsons"
 )
 
 var (

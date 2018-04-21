@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-price-drugstore/job"
+	"github.com/hsiaoairplane/compare-drugstore-price/job"
 )
 
 // Search implements the RESTful GET API.
