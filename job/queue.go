@@ -2,38 +2,42 @@ package job
 
 import (
 	"flag"
+	"time"
 
 	"github.com/golang/glog"
+	"github.com/hsiaoairplane/compare-drugstore-price/data"
 )
 
 var (
 	maxQueueSize = flag.Int("max-queue-size", 100, "Maximum job queue size")
+	jobQueue     chan Info
 )
 
-var (
-	JobQueue   chan JobInfo
-	CrawlerRet chan CrawlerJSON
-)
-
-// JobInfo describe how jobs composed.
-type JobInfo struct {
+// Info describe how jobs composed.
+type Info struct {
 	QueryName  string
-	NotifyChan chan bool
-}
-
-type CrawlerJSON struct {
-	showName     string
-	productName  string
-	productPrice string
+	Timeout    time.Duration
+	CrawlerRet chan []data.ProductInfo
+	//NotifyChan   chan bool
 }
 
 func init() {
 	glog.Infof("Start jobqueue size: %d", *maxQueueSize)
-	JobQueue = make(chan JobInfo, *maxQueueSize)
-	CrawlerRet = make(chan CrawlerJSON, *maxQueueSize)
+	jobQueue = make(chan Info, *maxQueueSize)
 }
 
-// Enqueue puts job to jobqueue
-func Enqueue(job JobInfo) {
-	JobQueue <- job
+// CreateNewJob creates a new job and enqueues to jobqueue.
+func CreateNewJob(QueryName string) Info {
+	crawlerRet := make(chan []data.ProductInfo)
+
+	job := Info{
+		QueryName:  QueryName,
+		Timeout:    30 * time.Second,
+		CrawlerRet: crawlerRet,
+	}
+
+	// Job enqueue
+	jobQueue <- job
+
+	return job
 }

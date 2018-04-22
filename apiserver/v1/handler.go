@@ -5,28 +5,41 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
+	"github.com/hsiaoairplane/compare-drugstore-price/data"
 	"github.com/hsiaoairplane/compare-drugstore-price/job"
+)
+
+const (
+	sortAscend  = "ascend"
+	sortDescend = "descend"
 )
 
 // Search implements the RESTful GET API.
 func Search(c *gin.Context) {
 	name := c.Query("name")
 	if name == "" {
-		glog.Error("query name is empty")
+		glog.Error("Query name is empty")
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid query parameter"})
 		return
 	}
+	sort := c.Query("sort")
+	if sort != "" && (sort != sortAscend && sort != sortDescend) {
+		glog.Error("Invalid sort parameter")
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid sort parameter"})
+		return
+	}
 
-	// Create channel
-	notifyChan := make(chan bool, 1)
-	ji := job.JobInfo{QueryName: name, NotifyChan: notifyChan}
-
-	// Enqueue query job
-	job.Enqueue(ji)
+	job := job.CreateNewJob(name)
 
 	// Wait job response
-	<-notifyChan
+	retJSON := <-job.CrawlerRet
 
-	// Close channel
-	close(notifyChan)
+	switch sort {
+	case sortAscend:
+		data.SortAscendByPrice(retJSON)
+	case sortDescend:
+		data.SortDescendByPrice(retJSON)
+	}
+
+	c.JSON(http.StatusOK, retJSON)
 }

@@ -42,17 +42,17 @@ The crawling steps:
 
 |    Method   |     URL     | Description |
 |-------------|-------------|-------------|
-| GET | <http://localhost/v1/search?name={name}&sort=false> | Query product name's price for all drugstore shop without sorting. |
-| GET | <http://localhost/v1/search?name={name}&sort=true&order=increase> | Query product name's price for all drugstore shop with sorting (ascending order). |
-| GET | <http://localhost/v1/search?name={name}&sort=true&order=decrease> | Query product name's price for all drugstore shop with sorting (descending order). |
+| GET | <http://localhost/v1/search?name={name}> | Query product name's price for all drugstore shop without sorting. |
+| GET | <http://localhost/v1/search?name={name}&sort=increase> | Query product name's price for all drugstore shop with sorting (ascending order). |
+| GET | <http://localhost/v1/search?name={name}&sort=decrease> | Query product name's price for all drugstore shop with sorting (descending order). |
 
 * HTTP Response JSON arry with JSON format
 
 |    Field     | Type(Length) |  Description |
 |--------------|--------------|--------------|
 |     shop     |  String(16)  |   Shop name  |
-|     name     |  String(128) | Product name |
-|     price    |  Integer     | Product price|
+|     name     |  String(128) | ProductInfo name |
+|     price    |  Integer     | ProductInfo price|
 
 ## TODO
 

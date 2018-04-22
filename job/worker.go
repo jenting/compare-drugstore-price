@@ -7,32 +7,29 @@ import (
 	"github.com/golang/glog"
 	"github.com/hsiaoairplane/compare-drugstore-price/crawler/poya"
 	"github.com/hsiaoairplane/compare-drugstore-price/crawler/watsons"
+	"github.com/hsiaoairplane/compare-drugstore-price/data"
 )
 
 var (
 	maxWorkerNum = flag.Int("max-worker-num", 16, "Maximum worker number")
 )
 
-/*
-type WorkerInfo struct {
-	workerID int
-	channel  chan interface{}
-}
-*/
-
 func jobWorker(id int) {
 	for {
 		select {
-		case job := <-JobQueue:
+		case job := <-jobQueue:
 			glog.Infof("Worker ID: %v QueryName: %v", id, job.QueryName)
 
 			// Sync two goroutine with sync.WaitGroup
 			wg := sync.WaitGroup{}
+			var ret1 []data.ProductInfo
+			var ret2 []data.ProductInfo
+			var ret []data.ProductInfo
 
 			// Add in main func()
 			wg.Add(1)
 			go func() {
-				watsons.Crawler(job.QueryName)
+				ret1 = watsons.Crawler(job.QueryName, job.Timeout)
 				// Done in goroutine
 				wg.Done()
 			}()
@@ -40,7 +37,7 @@ func jobWorker(id int) {
 			// Add in main func()
 			wg.Add(1)
 			go func() {
-				poya.Crawler(job.QueryName)
+				ret2 = poya.Crawler(job.QueryName, job.Timeout)
 				// Done in goroutine
 				wg.Done()
 			}()
@@ -48,7 +45,18 @@ func jobWorker(id int) {
 			// Waits two goroutine done
 			wg.Wait()
 
-			job.NotifyChan <- true
+			if ret1 != nil {
+				ret = append(ret, ret1...) // append two slices
+			}
+			if ret2 != nil {
+				ret = append(ret, ret2...) // append two slices
+			}
+
+			// Notify caller by notify channel
+			job.CrawlerRet <- ret
+
+			// Close notify channel
+			close(job.CrawlerRet)
 		}
 	}
 }
