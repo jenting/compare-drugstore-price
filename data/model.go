@@ -23,11 +23,11 @@ func (p ProductInfoList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 func (p ProductInfoList) Less(i, j int) bool { return p[i].Price < p[j].Price }
 
 // SortAscendByPrice sorts product with price with ascending order.
-func SortAscendByPrice(p []ProductInfo) {
+func SortAscendByPrice(p ProductInfoList) {
 	sort.Sort(ProductInfoList(p))
 }
 
 // SortDescendByPrice sorts product with price with descending order.
-func SortDescendByPrice(p []ProductInfo) {
+func SortDescendByPrice(p ProductInfoList) {
 	sort.Sort(sort.Reverse(ProductInfoList(p)))
 }

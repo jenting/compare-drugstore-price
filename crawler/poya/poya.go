@@ -12,7 +12,7 @@ import (
 )
 
 // Crawler implements poya crawler.
-func Crawler(search string, timeout time.Duration) []data.ProductInfo {
+func Crawler(search string, timeout time.Duration) data.ProductInfoList {
 	// Add HTTP timeout mechanism.
 	c := &http.Client{
 		Timeout: timeout,
@@ -41,7 +41,7 @@ func Crawler(search string, timeout time.Duration) []data.ProductInfo {
 		products = append(products, s)
 	})
 
-	var rets []data.ProductInfo
+	var rets data.ProductInfoList
 	for _, product := range products {
 		if product == nil {
 			continue

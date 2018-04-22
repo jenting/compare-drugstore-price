@@ -68,6 +68,11 @@
 			"Rev": "a5cdd64afdee435007ee3e9f6ed4684af949d568"
 		},
 		{
+			"ImportPath": "github.com/patrickmn/go-cache",
+			"Comment": "v2.1.0",
+			"Rev": "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
+		},
+		{
 			"ImportPath": "github.com/ugorji/go/codec",
 			"Rev": "ded73eae5db7e7a0ef6f55aace87a2873c5d2b74"
 		},

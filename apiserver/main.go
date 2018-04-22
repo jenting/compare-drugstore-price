@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	port = flag.Int("port", 8080, "Server port should assigned")
+	port = flag.Uint("port", 8080, "Server port should assigned")
 )
 
 // StartServer runs apiserver.

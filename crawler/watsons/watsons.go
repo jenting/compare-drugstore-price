@@ -12,7 +12,7 @@ import (
 )
 
 // Crawler implements watsons crawler.
-func Crawler(search string, timeout time.Duration) []data.ProductInfo {
+func Crawler(search string, timeout time.Duration) data.ProductInfoList {
 	// Add HTTP timeout mechanism.
 	c := &http.Client{
 		Timeout: timeout,
@@ -35,7 +35,7 @@ func Crawler(search string, timeout time.Duration) []data.ProductInfo {
 		return nil
 	}
 
-	var rets []data.ProductInfo
+	var rets data.ProductInfoList
 	product := doc.Find("div.productNameInfo")
 	product.Each(func(index int, sql *goquery.Selection) {
 		name := sql.Find("div.h1")

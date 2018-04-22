@@ -17,7 +17,7 @@ var (
 type Info struct {
 	QueryName  string
 	Timeout    time.Duration
-	CrawlerRet chan []data.ProductInfo
+	CrawlerRet chan data.ProductInfoList
 	//NotifyChan   chan bool
 }
 
@@ -28,7 +28,7 @@ func init() {
 
 // CreateNewJob creates a new job and enqueues to jobqueue.
 func CreateNewJob(QueryName string) Info {
-	crawlerRet := make(chan []data.ProductInfo)
+	crawlerRet := make(chan data.ProductInfoList)
 
 	job := Info{
 		QueryName:  QueryName,

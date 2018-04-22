@@ -2,6 +2,12 @@
 
 Compare prices between drugstores (Watson and Poya).
 
+## Setup
+
+First, download the project:
+
+    go get github.com/hsiaoairplane/compare-drugstore-price
+
 ## Crawling
 
 The crawling steps:
@@ -9,32 +15,16 @@ The crawling steps:
 2) Parse all the products' name and price from HTTP GET response HTML content
 3) Return the product name, product price, and shop name back to client
 
-## Crawling with persistent database
-
-The crawling steps:
-1) Get the query name, product name, product price, shop name, and update time from persistent database
-2) If query name exist and current time minus update time less than or equals N days, go to 8)
-3) If query name exist and current time minus update time large than N days, go to 5)
-4) If query name not exist, go to 5)
-5) Send HTTP GET request with parameter query name to multiple drugstores' URL with goroutine
-6) Parse all the products' name and price from HTTP GET response HTML content
-7) Save the query name, product name, product price, shop name, and update time to persistent database
-8) Return the product name, product price, and shop name back to client
-
-## Crawling with in-memory cache (w/ timeout mechanism) and persistent databae
+## Crawling with in-memory cache (w/ timeout mechanism)
 
 The crawling steps:
 1) Get the query name, product name, product price, shop name, and update time from in-memory cache
-2) If query name exist in-memory cache, go to 11)
+2) If query name exist in-memory cache, go to 7)
 3) If query name not exist in-memory cache, go to 4)
-4) Get the query name, product name, product price, shop name, and update time from persistent database
-5) If query name exist and current time minus update time less than or equals N days, go to 11)
-6) If query name exist and current time minus update time large than N days, go to 8)
-7) If query name not exist, go to 8)
-8) Send HTTP GET request with parameter query name to multiple drugstores' URL with goroutine
-9) Parse all the products' name and price from HTTP GET response HTML content
-10) Save the query name, product name, product price, shop name, and update time to in-memory cache and persistent database
-11) Return the product name, product price, and shop name back to client
+4) Send HTTP GET request with parameter query name to multiple drugstores' URL with goroutine
+5) Parse all the products' name and price from HTTP GET response HTML content
+6) Save the query name, product name, product price, shop name to in-memory cache
+7) Return the product name, product price, and shop name back to client
 
 ## RESTful APIs
 
@@ -51,15 +41,14 @@ The crawling steps:
 |    Field     | Type(Length) |  Description |
 |--------------|--------------|--------------|
 |     shop     |  String(16)  |   Shop name  |
-|     name     |  String(128) | ProductInfo name |
-|     price    |  Integer     | ProductInfo price|
+|     name     |  String(128) | Product name |
+|     price    |  Integer     | Product price|
 
 ## TODO
 
 * [ ] Support crawling cosmed HTML content
 * [ ] Support [prometheus](https://prometheus.io) metrics API
-* [ ] Analyze in-memory cache hit rate
-* [ ] Analyze threshold N days
+* [ ] Analyze in-memory cache hit rate and also analyze the timeout threshold for in-memory cache
 
 ## Godep
 
