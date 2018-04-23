@@ -27,8 +27,9 @@ func main() {
 	// logger and recovery (crash-free) middleware
 	router := gin.Default()
 
-	// Start job worker to de-job-queue.
-	job.StartWorker()
+	sigAPIServerChan := make(chan int)
+	// Start job worker to de-job-queue
+	go job.StartWorker(sigAPIServerChan)
 	// Start APIServer
-	apiserver.StartServer(router)
+	apiserver.StartServer(router, sigAPIServerChan)
 }

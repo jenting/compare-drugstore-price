@@ -1,7 +1,10 @@
 package job
 
 import (
+	"context"
 	"flag"
+	"os"
+	"os/signal"
 	"sync"
 
 	"github.com/golang/glog"
@@ -13,9 +16,10 @@ import (
 
 var (
 	maxWorkerNum = flag.Int("max-worker-num", 16, "Maximum worker number")
+	exitSync     = sync.WaitGroup{}
 )
 
-func jobWorker(id int) {
+func jobWorker(ctx context.Context, id int) {
 	for {
 		select {
 		case job := <-jobQueue:
@@ -68,15 +72,39 @@ func jobWorker(id int) {
 
 			// Close notify channel
 			close(job.CrawlerRet)
+
+		case <-ctx.Done():
+			glog.Infof("Terminate Worker ID: %v", id)
+			exitSync.Done()
+			return
 		}
 	}
 }
 
 // StartWorker initialize number of workers.
-func StartWorker() {
+func StartWorker(sigAPIServerChan chan<- int) {
 	glog.Infof("Start %d job workers", *maxWorkerNum)
 
+	ctx, cancel := context.WithCancel(context.Background())
 	for id := 1; id <= *maxWorkerNum; id++ {
-		go jobWorker(id)
+		exitSync.Add(1)
+		go jobWorker(ctx, id)
 	}
+
+	// To gracefully stop all services
+	signalCh := make(chan os.Signal, 1)
+	signal.Notify(signalCh, os.Interrupt)
+	go func() {
+		select {
+		case <-signalCh:
+			glog.Info("Receive os.Signal")
+			cancel()
+			return
+		}
+	}()
+	exitSync.Wait()
+
+	glog.Info("All workers shutdown")
+	// Signal APIServer to shutdown when all workers stops
+	sigAPIServerChan <- 1
 }
