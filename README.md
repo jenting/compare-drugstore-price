@@ -8,14 +8,12 @@ First, download the project:
 
     go get github.com/hsiaoairplane/compare-drugstore-price
 
-## Crawling
 
-The crawling steps:
-1) Send HTTP GET request with parameter query name to multiple drugstores' URL with goroutine
-2) Parse all the products' name and price from HTTP GET response HTML content
-3) Return the product name, product price, and shop name back to client
+Then run the project:
 
-## Crawling with in-memory cache (w/ timeout mechanism)
+    ./run.sh
+
+## Crawling with in-memory cache (with timeout mechanism)
 
 The crawling steps:
 1) Get the query name, product name, product price, shop name, and update time from in-memory cache
@@ -25,6 +23,54 @@ The crawling steps:
 5) Parse all the products' name and price from HTTP GET response HTML content
 6) Save the query name, product name, product price, shop name to in-memory cache
 7) Return the product name, product price, and shop name back to client
+
+## Architecture                                                                                                                                                                                                                                                
+                                                                                                                     +------------+             
+             +-------------------------------------------------------+ inserts job to job queue                      |  Client 1  |             
+             |    |   |   |                                     |    |                                               +------------+             
+             |    |   |   |       Job Queues                    |    |<----------------------+                                                  
+             |    |   |   |                                     |    |                       |                       +------------+             
+             +-------------------------------------------------------+                       |                       |  Client 2  |             
+                                         |                                        +--------------------+             +------------+             
+                                         |                                        |                    |  HTTP GET                                     
+                                         |  Worker get job from job queue         |       APIServer    | <--------->       .                    
+                                         |                                        |                    |                   .                    
+                                         |                                        +--------------------+                   .                    
+             +---------------------------v---------------------------+                       ^                                                  
+             |                                                       |                       |                       +------------+             
+             | +----+   +----+                               +----+  |                       |                       |  Client n  |             
+             | | W1 |   | W2 |  ...                      ... | Wn |  |-----------------------+                       +------------+             
+             | +----+   +----+                               +----+  |    go channel notify                                                     
+             |                     Workers Pool                      |                                                                          
+             |                                                       |                                                                          
+             +-------------------------------------------------------+                                                                          
+               ^                         |                 ^                                                                                        
+               |                         |                 |                                                                                        
+               |                         v                 |   Return Found Result                                                                  
+               |              +---------------------+      |                                                                                        
+               |              |                     |      |                                                                                        
+               |              |   in-memory cache   |------+                                                                                        
+               +------------->|                     |                                                                                           
+               |              +---------------------+                                                                                           
+               |  Write to cache         |                                                                                                      
+               |                         |  Not Found                                                                                           
+               |                         |                                                                                                      
+               |             +-----------v----------+                                                                                           
+               |             |                      |                                                                                           
+               +-------------|        Crawler       |                                                                                           
+       Return Crawler Result |                      |                                                                                           
+                             +----------------------+                                                                                           
+                                        ^ ^                                                                                                     
+                                       /   \  Sync. Wait                                                                                        
+                                      /     \                                                                                                   
+                                     v       v                                                                                                  
+                        +---------------+  +------------+                                                                                       
+                        |               |  |            |                                                                                       
+                        |    Watsons    |  |     Poya   |                                                                                       
+                        |               |  |            |                                                                                       
+                        +---------------+  +------------+                                                                                       
+                                                                                                                                                
+                                                                                                                                                
 
 ## RESTful APIs
 
