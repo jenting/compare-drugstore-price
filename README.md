@@ -1,6 +1,6 @@
 # Compare Drugstore Prices
 
-Compare prices between drugstores (Watson and Poya).
+Compare prices between drugstores (`Watson` and `Poya`).
 
 ## Setup
 
@@ -98,14 +98,6 @@ The crawling steps:
 
 ## Godep
 
-* Add dependency
+* Add all dependency `godep save ./...`
 
-```sh
-godep save ./...
-```
-
-* Restore currently vendored deps to the $GOPATH
-
-```sh
-godep restore
-```
+* Restore dependency in vendor folderto the $GOPATH `godep restore`
