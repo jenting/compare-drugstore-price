@@ -40,17 +40,17 @@ func jobWorker(ctx context.Context, id int) {
 				// Add in main func()
 				wg.Add(1)
 				go func() {
-					ret1 = watsons.Crawler(job.QueryName, job.Timeout)
 					// Done in goroutine
-					wg.Done()
+					defer wg.Done()
+					ret1 = watsons.Crawler(job.QueryName, job.Timeout)
 				}()
 
 				// Add in main func()
 				wg.Add(1)
 				go func() {
-					ret2 = poya.Crawler(job.QueryName, job.Timeout)
 					// Done in goroutine
-					wg.Done()
+					defer wg.Done()
+					ret2 = poya.Crawler(job.QueryName, job.Timeout)
 				}()
 
 				// Waits two goroutine done
