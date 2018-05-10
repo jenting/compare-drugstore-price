@@ -2,6 +2,8 @@
 
 Compare prices between drugstores (`Watson` and `Poya`).
 
+[![Build Status](https://travis-ci.com/hsiaoairplane/compare-drugstore-price.svg?branch=master)](https://travis-ci.com/hsiaoairplane/compare-drugstore-price)
+
 ## Setup
 
 First, download the project:
