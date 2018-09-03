@@ -4,6 +4,6 @@ all:
 	go build
 	
 clean:
-	@[ -f compare-drugstore-price ] && rm -r compare-drugstore-price || true
+	go clean
 
 .PHONY: all clean
