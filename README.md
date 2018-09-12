@@ -4,16 +4,22 @@ Compare prices between drugstores (`Watson` and `Poya`).
 
 [![Build Status](https://travis-ci.com/hsiaoairplane/compare-drugstore-price.svg?branch=master)](https://travis-ci.com/hsiaoairplane/compare-drugstore-price)
 
+## go version
+
+Please use go version >= 1.11
+
 ## Setup
 
 First, download the project:
-
-    go get github.com/hsiaoairplane/compare-drugstore-price
+```sh
+go get github.com/hsiaoairplane/compare-drugstore-price
+```
 
 
 Then run the project:
-
-    ./run.sh
+```sh
+./run.sh
+```
 
 ## Crawling with in-memory cache (with timeout mechanism)
 
@@ -97,9 +103,3 @@ The crawling steps:
 * [ ] Support crawling cosmed HTML content
 * [ ] Support [prometheus](https://prometheus.io) metrics API
 * [ ] Analyze in-memory cache hit rate and also analyze the timeout threshold for in-memory cache
-
-## Godep
-
-* Add all dependency `godep save ./...`
-
-* Restore dependency in vendor folderto the $GOPATH `godep restore`
