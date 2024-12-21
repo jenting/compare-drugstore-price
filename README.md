@@ -2,7 +2,7 @@
 
 Compare prices between drugstores (`Watson` and `Poya`).
 
-[![Build Status](https://travis-ci.com/hsiaoairplane/compare-drugstore-price.svg?branch=master)](https://travis-ci.com/hsiaoairplane/compare-drugstore-price)
+[![Build Status](https://travis-ci.com/jenting/compare-drugstore-price.svg?branch=master)](https://travis-ci.com/jenting/compare-drugstore-price)
 
 ## go version
 
@@ -12,7 +12,7 @@ Please use go version >= 1.11
 
 First, download the project:
 ```sh
-go get github.com/hsiaoairplane/compare-drugstore-price
+go get github.com/jenting/compare-drugstore-price
 ```
 
 
