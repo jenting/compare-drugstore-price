@@ -8,10 +8,10 @@ import (
 	"sync"
 
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-drugstore-price/cache"
-	"github.com/hsiaoairplane/compare-drugstore-price/crawler/poya"
-	"github.com/hsiaoairplane/compare-drugstore-price/crawler/watsons"
-	"github.com/hsiaoairplane/compare-drugstore-price/data"
+	"github.com/jenting/compare-drugstore-price/cache"
+	"github.com/jenting/compare-drugstore-price/crawler/poya"
+	"github.com/jenting/compare-drugstore-price/crawler/watsons"
+	"github.com/jenting/compare-drugstore-price/data"
 )
 
 var (

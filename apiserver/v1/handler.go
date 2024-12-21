@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-drugstore-price/data"
-	"github.com/hsiaoairplane/compare-drugstore-price/job"
+	"github.com/jenting/compare-drugstore-price/data"
+	"github.com/jenting/compare-drugstore-price/job"
 )
 
 const (

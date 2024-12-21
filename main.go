@@ -4,8 +4,8 @@ import (
 	"flag"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hsiaoairplane/compare-drugstore-price/apiserver"
-	"github.com/hsiaoairplane/compare-drugstore-price/job"
+	"github.com/jenting/compare-drugstore-price/apiserver"
+	"github.com/jenting/compare-drugstore-price/job"
 )
 
 func init() {

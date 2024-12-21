@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-drugstore-price/data"
+	"github.com/jenting/compare-drugstore-price/data"
 )
 
 var (

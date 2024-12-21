@@ -8,7 +8,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/golang/glog"
-	"github.com/hsiaoairplane/compare-drugstore-price/data"
+	"github.com/jenting/compare-drugstore-price/data"
 )
 
 // Crawler implements watsons crawler.

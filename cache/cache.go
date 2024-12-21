@@ -4,7 +4,7 @@ import (
 	"flag"
 	"time"
 
-	"github.com/hsiaoairplane/compare-drugstore-price/data"
+	"github.com/jenting/compare-drugstore-price/data"
 	cache "github.com/patrickmn/go-cache"
 )
 
