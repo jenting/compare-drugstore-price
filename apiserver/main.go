@@ -1,7 +1,6 @@
 package apiserver
 
 import (
-	v1 "compare-drugstore-price/apiserver/v1"
 	"context"
 	"flag"
 	"fmt"
@@ -10,6 +9,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
+
+	v1 "github.com/jenting/compare-drugstore-price/apiserver/v1"
 )
 
 var (

@@ -4,8 +4,9 @@ import (
 	"flag"
 	"time"
 
-	"github.com/jenting/compare-drugstore-price/data"
 	cache "github.com/patrickmn/go-cache"
+
+	"github.com/jenting/compare-drugstore-price/data"
 )
 
 var (

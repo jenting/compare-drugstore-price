@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+
 	"github.com/jenting/compare-drugstore-price/data"
 )
 

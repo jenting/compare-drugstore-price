@@ -8,6 +8,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/golang/glog"
+
 	"github.com/jenting/compare-drugstore-price/data"
 )
 

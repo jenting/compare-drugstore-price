@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/golang/glog"
+
 	"github.com/jenting/compare-drugstore-price/cache"
 	"github.com/jenting/compare-drugstore-price/crawler/poya"
 	"github.com/jenting/compare-drugstore-price/crawler/watsons"
