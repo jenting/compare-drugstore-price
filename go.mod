@@ -3,7 +3,7 @@ module github.com/jenting/compare-drugstore-price
 go 1.23.2
 
 require (
-	github.com/PuerkitoBio/goquery v1.10.0
+	github.com/PuerkitoBio/goquery v1.10.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang/glog v1.2.3
 	github.com/patrickmn/go-cache v2.1.0+incompatible
